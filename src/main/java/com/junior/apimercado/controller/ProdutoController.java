@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/v1")
 @RestController
 @Api(value = "Mercado API MVC")
 public class ProdutoController {

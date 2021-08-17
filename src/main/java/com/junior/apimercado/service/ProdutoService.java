@@ -29,7 +29,8 @@ public class ProdutoService {
     }
 
     public Produto save(Produto produto) {
-        List<ProdutoDto> list = produtoMapper.findAll().stream()
+        List<ProdutoDto> list = produtoMapper.findAll()
+                .stream()
                 .filter(x -> x.getNome().equals(produto.getNome()))
                 .collect(Collectors.toList());
 
@@ -54,9 +55,9 @@ public class ProdutoService {
 
     public ProdutoDto findById(Integer id) {
         Optional<ProdutoDto> produto = produtoMapper.findById(id);
-        if (produto.isPresent()){
+        if (produto.isPresent()) {
             return produto.get();
-        }else{
+        } else {
             throw new ExceptionNotFound("ID não encontrado " + id);
         }
 
@@ -68,6 +69,7 @@ public class ProdutoService {
             List<ProdutoDto> list = produtoMapper.findAll().stream()
                     .filter(x -> x.getNome().equals(produto.getNome()))
                     .collect(Collectors.toList());
+
             list.remove(byId.get());
             if (list.isEmpty()) {
                 produto.setId(byId.get().getId());
@@ -95,6 +97,7 @@ public class ProdutoService {
         if (list.isEmpty()) {
             throw new ExceptionNotFound("Nenhum produto até esse preço " + price);
         }
+        list.sort(Comparator.comparing(ProdutoDto::getPrice));
         return list;
     }
 }

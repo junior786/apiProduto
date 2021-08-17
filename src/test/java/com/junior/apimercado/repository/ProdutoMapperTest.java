@@ -77,7 +77,7 @@ class ProdutoMapperTest {
     }
 
     @Test
-    public void erro_Name_Exist(){
+    public void error_Name_Exist(){
         Produto produto = createProduto();
         produto.setNome("Teste");
 
@@ -85,18 +85,23 @@ class ProdutoMapperTest {
     }
 
     @Test
-    public void erro_Id_NotExist_List(){
+    public void error_Id_NotExist_List(){
         assertThrows(ExceptionNotFound.class, () -> produtoService.findById(100));
     }
 
     @Test
-    public void erro_Id_NotExist_Remove(){
+    public void error_Id_NotExist_Remove(){
         assertThrows(ExceptionNotFound.class, () -> produtoService.removeByid(100));
     }
 
     @Test
-    public void erro_Id_NotExist_Put(){
+    public void error_Id_NotExist_Put(){
         assertThrows(ExceptionNotFound.class, () -> produtoService.putById(100, createProduto()));
+    }
+
+    @Test
+    public void error_Name_NotExist(){
+        assertThrows(ExceptionNotFound.class, () -> produtoService.findByLike("ABC"));
     }
 
 
